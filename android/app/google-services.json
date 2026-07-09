@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426192609197",
+    "project_id": "birlacable-ca01b",
+    "storage_bucket": "birlacable-ca01b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426192609197:android:b954d43598a0ccec118b24",
+        "android_client_info": {
+          "package_name": "com.nebula.birlacable"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClsaSkjM7U0CbGKT-IbF9KfTLPkzdEiJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

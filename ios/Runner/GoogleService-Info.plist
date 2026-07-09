@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyBTxhzF1lyVhZ5Y5vQgMlGrTi3ihV8XLpg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>426192609197</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.nebula.birlacable</string>
+	<key>PROJECT_ID</key>
+	<string>birlacable-ca01b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>birlacable-ca01b.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:426192609197:ios:b02da7a9633b8cfc118b24</string>
+</dict>
+</plist>
