@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 
 class CallService {
 
-  static const platform = MethodChannel('com.nebulahub.birla/call');
+  static const platform = MethodChannel('com.nebula.birlacable/call');
 
   static makeDirectCall(String phoneNumber) async {
     try {

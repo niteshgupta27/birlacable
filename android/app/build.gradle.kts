@@ -35,8 +35,11 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-    }
 
+    }
+    base {
+        archivesName.set("BirlaWire-${flutter.versionName}")
+    }
     signingConfigs {
         create("release") {
             keyAlias = keystoreProperties.getProperty("keyAlias")

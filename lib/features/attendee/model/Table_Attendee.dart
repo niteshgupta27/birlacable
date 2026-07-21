@@ -36,6 +36,9 @@ class Table_Attendee {
   final String fldRemark3;
   final int fldInvites;
   final int tollfree;
+  final String fldAddress;
+  final String fldCity;
+  final String fldPincode;
 
   Table_Attendee({
     required this.fldAid,
@@ -75,6 +78,9 @@ class Table_Attendee {
     required this.fldRemark3,
     required this.fldInvites,
     required this.tollfree,
+    required this.fldAddress,
+    required this.fldCity,
+    required this.fldPincode,
   });
 
   factory Table_Attendee.fromJson(Map<String, dynamic> json) {
@@ -116,6 +122,9 @@ class Table_Attendee {
       fldRemark3: json['fld_remark_3']?.toString() ?? '',
       fldInvites: json['fld_invites'] is int ? json['fld_invites'] : int.tryParse(json['fld_invites']?.toString() ?? '0') ?? 0,
       tollfree: json['tollfree'] is int ? json['tollfree'] : int.tryParse(json['tollfree']?.toString() ?? '0') ?? 0,
+      fldAddress: json['fld_address']?.toString() ?? '',
+      fldCity: json['fld_city']?.toString() ?? '',
+      fldPincode: json['fld_pincode']?.toString() ?? '',
     );
   }
 
@@ -158,6 +167,9 @@ class Table_Attendee {
       "fld_remark_3": fldRemark3,
       "fld_invites": fldInvites,
       "tollfree": tollfree,
+      "fld_address": fldAddress,
+      "fld_city": fldCity,
+      "fld_pincode": fldPincode,
     };
   }
 }

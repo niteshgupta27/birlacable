@@ -1,8 +1,8 @@
 class AppConstants {
-  static const String appName = 'Birla';
+  static const String appName = 'Birla Wire';
   //static const double appVersion = 7.4;
   static const String fontFamily = 'InriaSans';
-  static const String baseUrl = 'https://birla.nebulahub.in/api/';
+  static const String baseUrl = 'http://bw.nebulahub.in/api/';
   static const String configUri = '/api/v1/config';
 
   static var login='auth/login';
@@ -35,7 +35,7 @@ class AppConstants {
   static const lastUpdate = 'lastUpdate';
   static const callLogList = 'callLogList';
   static const tollfree = 'TOLL FREE:- 90045 59396';
-  static var otherApp ="Pragati App";
+  static var otherApp ="App";
 static var CarpenterApp="Super Carpenter App";
 
 }

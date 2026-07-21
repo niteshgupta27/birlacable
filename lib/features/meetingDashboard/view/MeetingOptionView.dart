@@ -50,79 +50,81 @@ class MeetingOptionView extends GetView<MeetingOptionController> {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10),
+                  const SizedBox(height: 4),
                   // Carousel
                   Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     child: Text(
                       controller.meeting.value.fldLocation!,
-                      style: Styles.headerTitel,
+                      style: Styles.headerTitel.copyWith(fontSize: 16),
                     ),
                   ),
 
-                  SizedBox(height: 10),
+                  const SizedBox(height: 4),
                   // GridView for options
-                  Expanded(
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      padding: const EdgeInsets.all(10),
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                      childAspectRatio: 1.2,
-                      children: [
-                        // _buildGridItem(Images.estimates, "Estimates", Colors.pink.shade50),
-                        // _buildGridItem(Images.account, "Accounts", Colors.blue.shade50),
+                  GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 1.4,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      _buildGridItem(
+                        Images.Meeting_Start,
+                        "Meeting Start",
+                        Colors.yellow.shade50,
+                      ),
+                      if (controller.data.value.meetingInfo == 1 ||
+                          controller.data.value.meetingPhoto == 1 ||
+                          controller.data.value.meetingDetails == 1 ||
+                          controller.data.value.meetingAttendees == 1)
                         _buildGridItem(
-                          Images.Meeting_Start,
-                          "Meeting Start",
-                          Colors.yellow.shade50,
+                          Images.Meeting_Details,
+                          "Meeting Details",
+                          Colors.green.shade50,
                         ),
-                        if (controller.data.value.meetingInfo == 1 ||
-                            controller.data.value.meetingPhoto == 1 ||
-                            controller.data.value.meetingDetails == 1 ||
-                            controller.data.value.meetingAttendees == 1)
-                          _buildGridItem(
-                            Images.Meeting_Details,
-                            "Meeting Details",
-                            Colors.green.shade50,
-                          ),
-                        if (controller.data.value.meetingInfo == 1 ||
-                            controller.data.value.meetingPhoto == 1 ||
-                            controller.data.value.meetingDetails == 1 ||
-                            controller.data.value.meetingAttendees == 1)
-                          _buildGridItem(
-                            Images.Meeting_Photos,
-                            "Meeting Photos",
-                            Colors.purple.shade50,
-                          ),
-                        if (controller.data.value.meetingInfo == 1 ||
-                            controller.data.value.meetingPhoto == 1 ||
-                            controller.data.value.meetingDetails == 1 ||
-                            controller.data.value.meetingAttendees == 1)
-                          _buildGridItem(
-                            Images.Attendee,
-                            "Attendee List",
-                            Colors.orange.shade50,
-                          ),
-                      ],
-                    ),
+                      if (controller.data.value.meetingInfo == 1 ||
+                          controller.data.value.meetingPhoto == 1 ||
+                          controller.data.value.meetingDetails == 1 ||
+                          controller.data.value.meetingAttendees == 1)
+                        _buildGridItem(
+                          Images.Meeting_Photos,
+                          "Meeting Photos",
+                          Colors.purple.shade50,
+                        ),
+                      if (controller.data.value.meetingInfo == 1 ||
+                          controller.data.value.meetingPhoto == 1 ||
+                          controller.data.value.meetingDetails == 1 ||
+                          controller.data.value.meetingAttendees == 1)
+                        _buildGridItem(
+                          Images.Attendee,
+                          "Attendee List",
+                          Colors.orange.shade50,
+                        ),
+                    ],
                   ),
+
                   if (controller.data.value.meetingFinish == 1)
                     GestureDetector(
                       onTap: () => controller.finshbutton(),
                       child: Container(
-                        margin: const EdgeInsets.all(5),
-                        padding: const EdgeInsets.all(5),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 4),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
                           "Finish",
                           style: TextStyle(
                             fontFamily: 'PoppinsSemiBold',
                             color: Colors.white,
-                            fontSize: 19,
+                            fontSize: 16,
                           ),
                         ),
                       ),
@@ -191,12 +193,11 @@ class MeetingOptionView extends GetView<MeetingOptionController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(child: Image.asset(icon), width: 40),
-            //Icon(Images.account, color: AppColors.primaryColor, size: 40),
-            SizedBox(height: 8),
+            Image.asset(icon, width: 32),
+            const SizedBox(height: 4),
             Text(
               label.tr,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
           ],
         ),

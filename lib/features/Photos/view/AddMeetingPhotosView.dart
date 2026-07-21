@@ -70,7 +70,7 @@ class AddMeetingPhotosView extends GetView<AddMeetingPhotosController> {
                               style: const TextStyle(fontSize: 12),
                             ),
                           ),
-                          value: tag,
+                          value: tag,activeColor: AppColors.primaryColor,
                           groupValue: controller.selectedOption.value,
                           onChanged: (MeetingPhotoTypesData? value) {
                             controller.selectedOption.value = value;

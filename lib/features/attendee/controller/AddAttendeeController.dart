@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:intl/intl.dart';
+
 import '../../../Utill/Apputills.dart';
 import '../../../Utill/DialogHelper.dart';
 import '../../../Utill/ImageHelper.dart';
 import '../../../Utill/app_required.dart';
 import '../../camera/camera_page.dart';
 import '../../meeting/model/TableMeetingsModel.dart';
+import '../model/AdhesiveModel.dart';
 import '../model/RoleModel.dart';
 import '../model/Table_Attendee.dart';
 import '../service/AttendeeService.dart';
@@ -27,29 +30,78 @@ class AddAttendeeController extends GetxController {
 
   Rx<TextEditingController> shopCodeController = TextEditingController().obs;
 
-  //Rx<TextEditingController>  sitesController = TextEditingController().obs;
+  RxString selectedTeamSize = "".obs;
+  List<String> teamSizeOptions = ["1–5", "6–10", "11–20", "20+"];
+
+  RxString selectedSitePerMonth = "".obs;
+  List<String> sitePerMonthOptions = ["1–5", "6–10", "11–20", "20+"];
+
+  RxString selectedExperience = "".obs;
+  List<String> experienceOptions = ["0–2 years", "3–5 years", "6–10 years", "10+ years"];
+
+  RxString selectedQualification = "".obs;
+  List<String> qualificationOptions = [
+    "No School",
+    "Up to 5th",
+    "Up to 8th",
+    "10th Pass",
+    "12th Pass",
+    "ITI Diploma",
+    "Diploma",
+    "Graduate",
+    "Post Graduate"
+  ];
+
+  RxString selectedProjectType = "".obs;
+  List<String> projectTypeOptions = ["Residential", "Commercial", "Industrial"];
+
+  RxList<String> selectedAdhesives = <String>[].obs;
+
+  RxString decisionMaker = "Self".obs;
+  List<String> decisionMakerOptions = ["Self", "Customer"];
+
+  RxString selectedPurchaseFrequency = "".obs;
+  List<String> purchaseFrequencyOptions = [
+    "Weekly",
+    "Monthly",
+    "As per project requirement"
+  ];
+
+  RxString selectedPurchaseSource = "".obs;
+  List<String> purchaseSourceOptions = [
+    "Electrical Retailer",
+    "Distributor/Wholesaler",
+    "Company Dealer"
+  ];
+
   Rx<TextEditingController> DealerCodeController = TextEditingController().obs;
 
-  //Rx<TextEditingController>  orderValueController = TextEditingController().obs;
+  Rx<TextEditingController>  teamSizeController = TextEditingController().obs;
   // Rx<TextEditingController>  orderDeailController = TextEditingController().obs;
-  // Rx<TextEditingController>  GiftGivenController = TextEditingController().obs;
+  Rx<TextEditingController>  GiftGivenController = TextEditingController().obs;
   Rx<TextEditingController> remark1Controller = TextEditingController().obs;
   Rx<TextEditingController> remark2Controller = TextEditingController().obs;
   Rx<TextEditingController> remark3Controller = TextEditingController().obs;
+  Rx<TextEditingController> companynameController = TextEditingController().obs;
+  RxList<AdhesiveModel> Adhesive=<AdhesiveModel>[].obs;
 
   //RxString dealer_dropdown = "".obs;
   RxString fld_p_image_path = "".obs;
 
   Rx<TableMeetingsModel> meeting = TableMeetingsModel.fromJson({}).obs;
   List<String> radiooptions = ["Yes", "No"];
+  RxString CRMRegistered="No".obs;
 
-  //RxString smartphoneOption="No".obs;
+  RxString smartphoneOption="No".obs;
   RxString participantOption = "Yes".obs;
+  RxString attendeeType = "Electrician".obs;
+  List<String> attendeeTypeOptions = ["Electrician", "Contractor"];
+  RxString Enrolled_Loyalty = "No".obs;
 
-  //RxString DownloadApp="Yes".obs;
+  RxString DownloadApp="Yes".obs;
   // RxString PolisherApp="Yes".obs;
   // RxString Contractoroption="No".obs;
-  // RxString orderoption="No".obs;
+  RxString isgiftgiven="No".obs;
   // Table_Attendee attendee=Table_Attendee
   //     .fromJson({});
   Rx<Dealer> selectedDealer = Dealer.fromJson({}).obs;
@@ -58,6 +110,13 @@ class AddAttendeeController extends GetxController {
   String fld_attendance = "0";
   RxList<RoleModel> rolluser = <RoleModel>[].obs;
   Rx<RoleModel> selectedRoll = RoleModel.fromJson({}).obs;
+  Rx<TextEditingController>  DobController = TextEditingController().obs;
+  Rx<TextEditingController>  AgeController = TextEditingController().obs;
+  Rx<TextEditingController>  fatherNameController = TextEditingController().obs;
+  Rx<TextEditingController>  QualificationController = TextEditingController().obs;
+  Rx<TextEditingController> addressController = TextEditingController().obs;
+  Rx<TextEditingController> cityController = TextEditingController().obs;
+  Rx<TextEditingController> pincodeController = TextEditingController().obs;
 
   @override
   void onInit() {
@@ -84,6 +143,9 @@ class AddAttendeeController extends GetxController {
         remark1Controller.value.text = data.fldRemark1;
         remark2Controller.value.text = data.fldRemark2;
         remark3Controller.value.text = data.fldRemark3;
+        addressController.value.text = data.fldAddress;
+        cityController.value.text = data.fldCity;
+        pincodeController.value.text = data.fldPincode;
         // smartphoneOption.value=data.fldSmartphone=="1"?"Yes":"No";
         //  DownloadApp.value=data.fldAppDownloadNebula=="1"?"Yes":"No";
         //  PolisherApp.value=data.fldAppDownloadAttendee=="1"?"Yes":"No";
@@ -95,7 +157,7 @@ class AddAttendeeController extends GetxController {
         print("jjjjjjjjjjj${data.fldDealerId}");
         if (data.fldDealerId != "" && dealers.any((dealer) => dealer.fldDrid == int.tryParse(data.fldDealerId))) {
           selectedDealer.value = dealers.firstWhere(
-            (dealer) => dealer.fldDrid == int.parse(data.fldDealerId),
+                (dealer) => dealer.fldDrid == int.parse(data.fldDealerId),
           );
           DealerCodeController.value.text = selectedDealer.value.fldRcode ?? "";
         } else if (dealers.isNotEmpty) {
@@ -159,23 +221,62 @@ class AddAttendeeController extends GetxController {
       AppUtils.showSnackbar(Get.context!,"Please enter mobile number", "Info");
     } else if (!RegExp(regex).hasMatch(Phone_NumberController.value.text)) {
       AppUtils.showSnackbar(Get.context!,"Please enter valid mobile number", "Info");
-    } else if (ShopnameController.value.text.trim().isEmpty) {
-      AppUtils.showSnackbar(Get.context!,"Please enter shop name", "Info");
-    } else if (ShopLocationController.value.text.trim().isEmpty) {
-      AppUtils.showSnackbar(Get.context!,"Please enter shop location", "Info");
     }
+    // else if ( Enrolled_Loyalty=="Yes"&&companynameController.value.text.trim().isEmpty) {
+    //   AppUtils.showSnackbar(Get.context!,"Please enter Company name", "Info");
+    // }
+    // else if ( attendeeType =="Electrician"&&ShopLocationController.value.text.trim().isEmpty) {
+    //   AppUtils.showSnackbar(Get.context!,"Please enter shop location", "Info");
+    // }
     // else if (smartphoneOption == "Yes" && DownloadApp == "No" && PolisherApp == "No" && ReasonController.value.text.isEmpty) {
     //   AppUtils.showSnackbar("Please enter Reason", "Info");
     // } else if (participantOption == "Yes" && orderoption == "Yes" && orderValueController.value.text.isEmpty && orderDeailController.value.text.isEmpty) {
     //   AppUtils.showSnackbar("Please enter valid order details", "Info");
     // }
-    // else if (GiftGivenController.value.text.isEmpty) {
-    //   AppUtils.showSnackbar("Please enter gift Given", "Info");
+    else if (isgiftgiven=="Yes" && GiftGivenController.value.text.isEmpty) {
+      AppUtils.showSnackbar(Get.context!,"Please enter gift Given", "Info");
+    }
+    else if ( attendeeType !="Electrician" && selectedTeamSize.value.isEmpty) {
+      AppUtils.showSnackbar(Get.context!,"Please select Team Size", "Info");
+    } else if (attendeeType !="Electrician" && selectedSitePerMonth.value.isEmpty) {
+      AppUtils.showSnackbar(Get.context!,"Please select number of Site", "Info");
+    } 
+    else if (AgeController.value.text.trim().isEmpty) {
+      AppUtils.showSnackbar(Get.context!, "Please select Date of Birth", "Info");
+    } else if ((int.tryParse(AgeController.value.text) ?? 0) < 17) {
+      AppUtils.showSnackbar(Get.context!, "Minimum age should be 17 years", "Info");
+    }
+    else if (fatherNameController.value.text.trim().isEmpty) {
+      AppUtils.showSnackbar(Get.context!, "Please enter father name", "Info");
+    }
+    // else if (selectedExperience.value.isEmpty) {
+    //   AppUtils.showSnackbar(Get.context!,"Please select Years of Experience", "Info");
+    // } else if (selectedQualification.value.isEmpty) {
+    //   AppUtils.showSnackbar(Get.context!, "Please select Qualification", "Info");
+    // } else if (addressController.value.text.trim().isEmpty) {
+    //   AppUtils.showSnackbar(Get.context!, "Please enter address", "Info");
     // }
-    // else if (participantOption == "Yes" && Contractoroption == "Yes" && teamSizeController.value.text.isEmpty) {
-    //   AppUtils.showSnackbar("Please enter Team Size", "Info");
-    // } else if (participantOption == "Yes" && Contractoroption == "Yes" && sitesController.value.text.isEmpty) {
-    //   AppUtils.showSnackbar("Please enter number of Site", "Info");
+    else if (cityController.value.text.trim().isEmpty) {
+      AppUtils.showSnackbar(Get.context!, "Please enter city", "Info");
+    }
+    // else if (pincodeController.value.text.trim().isEmpty) {
+    //   AppUtils.showSnackbar(Get.context!, "Please enter pincode", "Info");
+    // } else if (pincodeController.value.text.trim().length != 6) {
+    //   AppUtils.showSnackbar(Get.context!, "Please enter valid 6-digit pincode", "Info");
+    // } else if (selectedProjectType.value.isEmpty) {
+    //   AppUtils.showSnackbar(
+    //       Get.context!, "Please select Primary Project Type", "Info");
+    // } else if (selectedAdhesives.isEmpty) {
+    //   AppUtils.showSnackbar(
+    //       Get.context!, "Please select at least one Preferred Brand", "Info");
+    // } else if (
+    //     selectedPurchaseFrequency.value.isEmpty) {
+    //   AppUtils.showSnackbar(
+    //       Get.context!, "Please select Purchase Frequency", "Info");
+    // } else if (
+    //     selectedPurchaseSource.value.isEmpty) {
+    //   AppUtils.showSnackbar(
+    //       Get.context!, "Please select Purchase Source", "Info");
     // }
     else if (selectedDealer.value.fldDrid == 0) {
       AppUtils.showSnackbar(Get.context!,"Please select dealer name", "Info");
@@ -201,22 +302,20 @@ class AddAttendeeController extends GetxController {
       "fld_attendee_name": Painter_NameController.value.text,
       "fld_pancard": Pan_CardController.value.text,
       "fld_mobile": Phone_NumberController.value.text,
-      "fld_dob": "",
-      "fld_age": "",
-      "fld_qualification": "",
+      "fld_dob": DobController.value.text.toString(),
+      "fld_age": AgeController.value.text,
+      "fld_father_name": fatherNameController.value.text,
+      "fld_qualification": selectedQualification.value,
       //QualificationController.value.text,
-      "fld_gift_given": "",
+      "fld_gift_given":isgiftgiven=="Yes"?GiftGivenController.value.text:"" ,
       // GiftGivenController.value.text,
-      "fld_contractor": 0,
+      "fld_contractor": attendeeType=="Electrician"?0:1,
       //participantOption.value=="Yes"&& Contractoroption.value=="Yes"?1:0,
-      "fld_contractor_team_size": "",
-      //participantOption.value=="Yes"&& Contractoroption.value=="Yes"?teamSizeController.value.text:"",
-      "fld_contractor_sites": "",
+      "fld_contractor_team_size": attendeeType!="Electrician"?selectedTeamSize.value:"",
+      "fld_contractor_sites": attendeeType!="Electrician"?selectedSitePerMonth.value:"",
       //participantOption.value=="Yes"&& Contractoroption.value=="Yes"?sitesController.value.text:"",
-      "fld_smartphone": 0,
-      //participantOption.value=="Yes"&& smartphoneOption.value=="Yes"?1:0,
-      "fld_app_download_nebula": 0,
-      //participantOption.value=="Yes"&&smartphoneOption.value=="Yes" && Contractoroption.value=="Yes"&& DownloadApp.value=="Yes"?1:0,
+      "fld_smartphone": smartphoneOption=="Yes"?1:0,
+      "fld_app_download_nebula":smartphoneOption=="Yes" && DownloadApp.value=="Yes"?1:0,
       "fld_app_download_attendee": 0,
       //participantOption.value=="Yes"&&smartphoneOption.value=="Yes" && Contractoroption.value=="Yes"&& DownloadApp.value=="No"&& PolisherApp.value=="Yes"?1:0,
       "fld_not_download_reason": "",
@@ -234,6 +333,8 @@ class AddAttendeeController extends GetxController {
       "fld_ref_1": "",
       "fld_ref_2": "",
       "fld_ref_3": "",
+      // "fld_ref_4": "",
+      // "fld_ref_5": "",
       "fld_remark_1": remark1Controller.value.text,
       "fld_remark_2": remark2Controller.value.text,
       "fld_remark_3": remark3Controller.value.text,
@@ -243,9 +344,20 @@ class AddAttendeeController extends GetxController {
           : "",
       "fld_lat": appStorage.lat.value,
       "fld_long": appStorage.long.value,
-      "fld_shop_location": ShopLocationController.value.text,
-      "fld_shop_name": ShopnameController.value.text,
-      "fld_shop_code": shopCodeController.value.text,
+      "fld_shop_location":"",
+      "fld_shop_name": "",
+      "fld_shop_code": "",
+      "fld_experience":  selectedExperience.value ,
+"fld_project_type":selectedProjectType.value,
+      "fld_brand_decision":decisionMaker.value,
+      "fld_brand_preffered":selectedAdhesives.join(","),
+      "fld_purchase_frequency":selectedPurchaseFrequency.value,
+      "fld_purchase_source":selectedPurchaseSource.value,
+      "fld_royalty_program":Enrolled_Loyalty=="Yes" ?companynameController.value.text:"",
+      "fld_address": addressController.value.text,
+      "fld_city": cityController.value.text,
+      "fld_pincode": pincodeController.value.text,
+      "fld_crm":CRMRegistered.value == "Yes" ? 1 : 0,
       if (Attendee_id != 0) 'attendee_id': Attendee_id,
       "fld_staff_id": participantOption.value == "No"
           ? selectedRoll.value.fldSid
@@ -255,19 +367,19 @@ class AddAttendeeController extends GetxController {
     print(requestBody);
     productServices.Addattendee(body: requestBody, modify: Attendee_id != 0)
         .then((value) async {
-          isLoading.value = false;
-          if (value.success == true) {
-            Get.back(result: {"status": "success"});
-            AppUtils.showSnackbar(Get.context!,value.message.toString(), "success");
-          } else {
-            AppUtils.showSnackbar(Get.context!,value.message.toString(), "Error");
-          }
-        })
+      isLoading.value = false;
+      if (value.success == true) {
+        Get.back(result: {"status": "success"});
+        AppUtils.showSnackbar(Get.context!,value.message.toString(), "success");
+      } else {
+        AppUtils.showSnackbar(Get.context!,value.message.toString(), "Error");
+      }
+    })
         .catchError((err) {
-          isLoading.value = false;
-          AppUtils.showSnackbar(Get.context!,err.toString(), "server Error");
-          //AppUtils.alert("Something went wrong", title: "Oops");
-        });
+      isLoading.value = false;
+      AppUtils.showSnackbar(Get.context!,err.toString(), "server Error");
+      //AppUtils.alert("Something went wrong", title: "Oops");
+    });
   }
 
   void getstaffvalue() {
@@ -277,27 +389,28 @@ class AddAttendeeController extends GetxController {
     productServices
         .getstaff()
         .then((value) async {
-          isLoading.value = false;
-          if (value.success == true && value.data.isNotEmpty) {
-            rolluser.value = value.data;
-            selectedRoll.value = rolluser.first;
-          } else {
-            // Get.back();
+      isLoading.value = false;
+      if (value.success == true && value.data.isNotEmpty) {
+        rolluser.value = value.data;
+        selectedRoll.value = rolluser.first;
+      } else {
+        // Get.back();
 
-            AppUtils.showSnackbar(Get.context!,value.message.toString(), "Info");
-          }
-        })
+        AppUtils.showSnackbar(Get.context!,value.message.toString(), "Info");
+      }
+    })
         .catchError((err) {
-          // Get.back();
-          isLoading.value = false;
-          AppUtils.showSnackbar(Get.context!,"Something went wrong", "Oops");
-          //AppUtils.alert("Something went wrong", title: "Oops");
-        });
+      // Get.back();
+      isLoading.value = false;
+      AppUtils.showSnackbar(Get.context!,"Something went wrong", "Oops");
+      //AppUtils.alert("Something went wrong", title: "Oops");
+    });
   }
 
   Future<void> CallGetdata() async {
     if (await AppUtils.checkInternetConnectivity()) {
       getstaffvalue();
+     // Calladhesives();
     } else {
       AppUtils.showSnackbar(Get.context!,"Please check Internet Connection", "Info");
     }
@@ -313,5 +426,35 @@ class AddAttendeeController extends GetxController {
         }
       },
     );
+  }
+  Future<void> Calladhesives() async {
+    // AppUtils.alertWithProgressBar();
+
+    isLoading.value= true;
+
+    productServices.getadhesives(fld_uid:appStorage.loggedInUser.id).then((value) async {
+      isLoading.value = false;
+      if(value.success==true) {
+        Adhesive.value=value.data;
+      }else{
+        AppUtils.showSnackbar(Get.context!,value.message.toString(),"Error");
+      }
+    }).catchError((err) {
+      isLoading.value = false;
+      AppUtils.showSnackbar(Get.context!,err.toString(),"server Error");
+      //AppUtils.alert("Something went wrong", title: "Oops");
+    });
+  }
+  void calculateAge(String dob) {
+    try {
+      final date = DateFormat('yyyy/MM/DD').parse(dob);
+      var age = DateTime.now().year - date.year;
+      if (DateTime.now().month < date.month || (DateTime.now().month == date.month && DateTime.now().day < date.day)) {
+        age--;
+      }
+      AgeController.value.text = age.toString();
+    } catch (e) {
+      print('Invalid date format');
+    }
   }
 }
