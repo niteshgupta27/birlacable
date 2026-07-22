@@ -302,7 +302,9 @@ class AddAttendeeController extends GetxController {
       "fld_attendee_name": Painter_NameController.value.text,
       "fld_pancard": Pan_CardController.value.text,
       "fld_mobile": Phone_NumberController.value.text,
-      "fld_dob": DobController.value.text.toString(),
+      "fld_dob": DobController.value.text.isNotEmpty
+          ? DateFormat('yyyy/MM/dd').format(DateFormat('dd/MM/yyyy').parse(DobController.value.text))
+          : "",
       "fld_age": AgeController.value.text,
       "fld_father_name": fatherNameController.value.text,
       "fld_qualification": selectedQualification.value,
@@ -447,7 +449,7 @@ class AddAttendeeController extends GetxController {
   }
   void calculateAge(String dob) {
     try {
-      final date = DateFormat('yyyy/MM/DD').parse(dob);
+      final date = DateFormat('dd/MM/yyyy').parse(dob);
       var age = DateTime.now().year - date.year;
       if (DateTime.now().month < date.month || (DateTime.now().month == date.month && DateTime.now().day < date.day)) {
         age--;

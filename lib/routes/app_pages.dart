@@ -17,6 +17,7 @@ import '../features/Photos/view/MeetingPhotosList.dart';
 import '../features/Start/binding/MeetingStartBinding.dart';
 import '../features/Start/view/MeetingStartView.dart';
 import '../features/attendee/view/AddAttendee3View.dart';
+import '../features/attendee/view/QuestionView.dart';
 import '../features/auth/Login/view/login_view.dart';
 import '../features/auth/bindings/auth_bindings.dart';
 import '../features/invite/binding/InviteBinding.dart';
@@ -118,6 +119,11 @@ class AppPages {
         name: _Paths.inviteSCREEN,
         page: () =>  InviteView(),
         binding: InviteBindings()
+    ),
+    GetPage(
+      name: _Paths.QuestionScreen,
+      page: () => QuestionView(),
+      binding: AttendeeBinding(),
     ),
     // // GetPage(
     // //   name: _Paths.Profile,

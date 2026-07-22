@@ -52,11 +52,19 @@ class LiveView extends GetView<AttendeeController> {
                               order.fldAttendeeName.toString().trim(),
                               style: Styles.headerTitel,
                             ),
-                            // if (order.fldAttendance == 1 || order.fldInvites == 1)
-                            //   IconButton(
-                            //     icon: const Icon(Icons.edit_note_outlined, size: 20),
-                            //     onPressed: () => controller.editAttendee(order),
-                            //   ),
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.help_outline, size: 20, color: AppColors.primaryColor),
+                                  onPressed: () => controller.goToQuestionScreen(order),
+                                ),
+                                // if (order.fldAttendance == 1 || order.fldInvites == 1)
+                                //   IconButton(
+                                //     icon: const Icon(Icons.edit_note_outlined, size: 20),
+                                //     onPressed: () => controller.editAttendee(order),
+                                //   ),
+                              ],
+                            ),
                           ],
                         ),
                         const SizedBox(height: 10),

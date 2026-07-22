@@ -6,6 +6,7 @@ import '../controller/AddAttendee2Controller.dart';
 import '../controller/AddAttendee3Controller.dart';
 import '../controller/AddAttendeeController.dart';
 import '../controller/AttendeeController.dart';
+import '../controller/QuestionController.dart';
 import '../service/AttendeeService.dart';
 
 class AttendeeBinding extends Bindings {
@@ -27,6 +28,9 @@ class AttendeeBinding extends Bindings {
     );
     Get.lazyPut<AddAttendee3Controller>(
           () => AddAttendee3Controller(),
+    );
+    Get.lazyPut<QuestionController>(
+          () => QuestionController(),
     );
   }
 }

@@ -153,6 +153,16 @@ class AttendeeController extends GetxController {
     // }
   }
 
+  Future<void> goToQuestionScreen(Table_Attendee data) async {
+    final result = await Get.toNamed(
+      Routes.QuestionScreen,
+      arguments: {"data": meeting.value.toJson(), "Attendees": data},
+    );
+    if (result != null) {
+      CallGetdata();
+    }
+  }
+
   void onButtonPressed(int index) {
     selectedIndex.value = index;
     pageController.animateToPage(

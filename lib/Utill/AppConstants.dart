@@ -28,13 +28,15 @@ class AppConstants {
   static var getstaff='get-staff-list';
   static var attendance="meeting/attendance";
   static var AttendeeRefresh = "misscalls/check?d=";
+  static var SURVEY_QUESTIONS = "survey/questions";
+  static var SUBMIT_SURVEY = "survey/save";
   static var phonenoExp = '^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}';
   static var emailExp = "^[a-zA-Z0-9.a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\$";
   static const loginUserInformation = 'loginUserInformation_storage';
   static const loginUserInformationToken = 'loginUserInformation_token';
   static const lastUpdate = 'lastUpdate';
   static const callLogList = 'callLogList';
-  static const tollfree = 'TOLL FREE:- 90045 59396';
+ // static const tollfree = 'TOLL FREE:- 90045 59396';
   static var otherApp ="App";
 static var CarpenterApp="Super Carpenter App";
 

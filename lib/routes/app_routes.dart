@@ -23,6 +23,7 @@ abstract class Routes {
   static const Meetingoption = _Paths.Meetingoption;
   static const Permission = _Paths.Permission;
   static const inviteSCREEN = _Paths.inviteSCREEN;
+  static const QuestionScreen = _Paths.QuestionScreen;
 
 }
 
@@ -51,5 +52,6 @@ abstract class _Paths {
   static const MeetingPhotos = "/photos";
   static const Meetingoption = "/option";
   static const inviteSCREEN = "/invite";
+  static const QuestionScreen = "/question";
 
 }

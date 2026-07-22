@@ -222,7 +222,9 @@ class AddAttendee2Controller extends GetxController {
       "fld_attendee_name": Painter_NameController.value.text,
       "fld_pancard":Pan_CardController.value.text,
       "fld_mobile":Phone_NumberController.value.text,
-      "fld_dob":participantOption.value=="Yes"?DobController.value.text:"",
+      "fld_dob": participantOption.value == "Yes" && DobController.value.text.isNotEmpty
+          ? DateFormat('yyyy/MM/dd').format(DateFormat('dd/MM/yyyy').parse(DobController.value.text))
+          : "",
       "fld_age":participantOption.value=="Yes"?AgeController.value.text:"",
       "fld_qualification": participantOption.value=="Yes"?QualificationController.value.text:"",
       "fld_gift_given": GiftGivenController.value.text,

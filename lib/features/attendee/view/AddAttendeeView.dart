@@ -223,11 +223,11 @@ class AddAttendeeView extends GetView<AddAttendeeController> {
                       onChanged: (value) => controller.calculateAge(value) ,
                     ),
                     Text(
-                      "yyyy/MM/DD E.g.1987/09/27",
+                      "DD/MM/YYYY E.g.27/09/1987",
                       style:  TextStyle(
                           fontFamily: AppConstants.fontFamily,
                           fontWeight: FontWeight.w200,
-                          color: AppColors.fountGray,
+                          color: AppColors.black,
                           fontSize: Dimensions.fontSizeExtraSmall
                       ),
                     ),
@@ -275,29 +275,29 @@ class AddAttendeeView extends GetView<AddAttendeeController> {
                         );
                       }).toList(),
                     ),
-                    const SizedBox(height: 16),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: Text("Attendee Type", style: Styles.headerTitel),
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: controller.attendeeTypeOptions.map((tag) {
-                        return Expanded(
-                          child: RadioListTile<String>(
-                            title: Text(tag),
-                            value: tag,activeColor: AppColors.primaryColor,
-                            groupValue: controller.attendeeType.value,
-                            onChanged: (String? value) {
-                              controller.attendeeType.value = value!;
-
-                            },
-                            contentPadding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                          ),
-                        );
-                      }).toList(),
-                    ),
+                    // const SizedBox(height: 16),
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(horizontal: 5),
+                    //   child: Text("Attendee Type", style: Styles.headerTitel),
+                    // ),
+                    // const SizedBox(height: 5),
+                    // Row(
+                    //   children: controller.attendeeTypeOptions.map((tag) {
+                    //     return Expanded(
+                    //       child: RadioListTile<String>(
+                    //         title: Text(tag),
+                    //         value: tag,activeColor: AppColors.primaryColor,
+                    //         groupValue: controller.attendeeType.value,
+                    //         onChanged: (String? value) {
+                    //           controller.attendeeType.value = value!;
+                    //
+                    //         },
+                    //         contentPadding: EdgeInsets.zero,
+                    //         visualDensity: VisualDensity.compact,
+                    //       ),
+                    //     );
+                    //   }).toList(),
+                    // ),
                     // if(controller.attendeeType.value=="Electrician")
                     //   Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
                     //     const SizedBox(height: 16),
@@ -397,83 +397,83 @@ class AddAttendeeView extends GetView<AddAttendeeController> {
                     //       ),
                     //       // onChanged: (value) => controller.noteTitle.value = value,
                     //     ),]),
-                    if(controller.attendeeType.value!="Electrician")
-                      Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
-                        const SizedBox(height: 16),
-                        DropdownButtonFormField<String>(
-                          value: controller.selectedTeamSize.value.isEmpty
-                              ? null
-                              : controller.selectedTeamSize.value,
-                          decoration: InputDecoration(
-                            labelText: 'Team Size',
-                            labelStyle:
-                                const TextStyle(color: AppColors.fountGray),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColors.fountGray.withOpacity(0.4)),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColors.fountGray.withOpacity(0.4)),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColors.fountGray.withOpacity(0.4),
-                                  width: 2.0),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                          items: controller.teamSizeOptions.map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            controller.selectedTeamSize.value = newValue!;
-                          },
-                        ),
-                        const SizedBox(height: 16),
-                        DropdownButtonFormField<String>(
-                          value: controller.selectedSitePerMonth.value.isEmpty
-                              ? null
-                              : controller.selectedSitePerMonth.value,
-                          decoration: InputDecoration(
-                            labelText: 'Site per Month',
-                            labelStyle:
-                                const TextStyle(color: AppColors.fountGray),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColors.fountGray.withOpacity(0.4)),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColors.fountGray.withOpacity(0.4)),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: AppColors.fountGray.withOpacity(0.4),
-                                  width: 2.0),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                          ),
-                          items: controller.sitePerMonthOptions
-                              .map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            controller.selectedSitePerMonth.value = newValue!;
-                          },
-                        ),
-
-                      ]),
+                    // if(controller.attendeeType.value!="Electrician")
+                    //   Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+                    //     const SizedBox(height: 16),
+                    //     DropdownButtonFormField<String>(
+                    //       value: controller.selectedTeamSize.value.isEmpty
+                    //           ? null
+                    //           : controller.selectedTeamSize.value,
+                    //       decoration: InputDecoration(
+                    //         labelText: 'Team Size',
+                    //         labelStyle:
+                    //             const TextStyle(color: AppColors.fountGray),
+                    //         border: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //               color: AppColors.fountGray.withOpacity(0.4)),
+                    //           borderRadius: BorderRadius.circular(8.0),
+                    //         ),
+                    //         enabledBorder: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //               color: AppColors.fountGray.withOpacity(0.4)),
+                    //           borderRadius: BorderRadius.circular(8.0),
+                    //         ),
+                    //         focusedBorder: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //               color: AppColors.fountGray.withOpacity(0.4),
+                    //               width: 2.0),
+                    //           borderRadius: BorderRadius.circular(8.0),
+                    //         ),
+                    //       ),
+                    //       items: controller.teamSizeOptions.map((String value) {
+                    //         return DropdownMenuItem<String>(
+                    //           value: value,
+                    //           child: Text(value),
+                    //         );
+                    //       }).toList(),
+                    //       onChanged: (String? newValue) {
+                    //         controller.selectedTeamSize.value = newValue!;
+                    //       },
+                    //     ),
+                    //     const SizedBox(height: 16),
+                    //     DropdownButtonFormField<String>(
+                    //       value: controller.selectedSitePerMonth.value.isEmpty
+                    //           ? null
+                    //           : controller.selectedSitePerMonth.value,
+                    //       decoration: InputDecoration(
+                    //         labelText: 'Site per Month',
+                    //         labelStyle:
+                    //             const TextStyle(color: AppColors.fountGray),
+                    //         border: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //               color: AppColors.fountGray.withOpacity(0.4)),
+                    //           borderRadius: BorderRadius.circular(8.0),
+                    //         ),
+                    //         enabledBorder: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //               color: AppColors.fountGray.withOpacity(0.4)),
+                    //           borderRadius: BorderRadius.circular(8.0),
+                    //         ),
+                    //         focusedBorder: OutlineInputBorder(
+                    //           borderSide: BorderSide(
+                    //               color: AppColors.fountGray.withOpacity(0.4),
+                    //               width: 2.0),
+                    //           borderRadius: BorderRadius.circular(8.0),
+                    //         ),
+                    //       ),
+                    //       items: controller.sitePerMonthOptions
+                    //           .map((String value) {
+                    //         return DropdownMenuItem<String>(
+                    //           value: value,
+                    //           child: Text(value),
+                    //         );
+                    //       }).toList(),
+                    //       onChanged: (String? newValue) {
+                    //         controller.selectedSitePerMonth.value = newValue!;
+                    //       },
+                    //     ),
+                    //
+                    //   ]),
 
                     const SizedBox(height: 16),
                     // DropdownButtonFormField<String>(
